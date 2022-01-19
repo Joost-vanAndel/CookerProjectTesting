@@ -4,6 +4,10 @@ import cv2
 import numpy as np
 import tensorflow as tf
 
+from tensorflow import keras
+from tensorflow.keras import layers
+from tensorflow.keras.models import Sequential
+
 data_dir = tf.keras.utils.get_file('cooker_dataset', origin='', untar=False)
 data_dir = pathlib.Path(data_dir)
 
@@ -33,11 +37,11 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
 class_names = train_ds.class_names
 print(class_names)
 
-# for image_batch, labels_batch in train_ds:
-#   print(image_batch.shape)
-#   print(labels_batch.shape)
-#   break
-#
+for image_batch, labels_batch in train_ds:
+  print(image_batch.shape)
+  print(labels_batch.shape)
+  break
+
 # AUTOTUNE = tf.data.AUTOTUNE
 #
 # train_ds = train_ds.cache().shuffle(1000).prefetch(buffer_size=AUTOTUNE)
@@ -90,7 +94,7 @@ reconstructed_model = tf.keras.models.load_model("CookerCNN_Model")
 # np_image_data=cv2.normalize(np_image_data.astype('float'), None, -0.5, .5, cv2.NORM_MINMAX)
 # np_final = np.expand_dims(np_image_data, axis=0)
 
-img = cv2.imread('C:/Users/joost/.keras/datasets/watertest.jpeg')
+img = cv2.imread('C:/Users/joost/Documents/GitHub/CookerProjectTesting/ValidationImages/carrots_boiling/175IMG_6682.JPEG.jpg')
 inp = cv2.resize(img, (img_width, img_height))
 rgb = cv2.cvtColor(inp, cv2.COLOR_BGR2RGB)
 
